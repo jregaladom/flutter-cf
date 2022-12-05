@@ -11,13 +11,6 @@ class MyMultiChild extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Column(
-                // children: [
-                //   Container(
-                //     height: 10,
-                //   ),
-                // ],
-                ),
             Stack(
               alignment: Alignment.center,
               children: const [
