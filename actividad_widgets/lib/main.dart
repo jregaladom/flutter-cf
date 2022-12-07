@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:actividad_widgets/pages/MyHomePage.dart';
 import 'package:actividad_widgets/pages/MyMultiChild.dart';
+import 'package:actividad_widgets/pages/MyListViewPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo',
-      home: MyMultiChild(),
+      home: MyListViewPage(),
     );
   }
 }

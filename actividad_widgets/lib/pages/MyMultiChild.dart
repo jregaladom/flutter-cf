@@ -25,7 +25,6 @@ class MyMultiChild extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
                   children: const [
