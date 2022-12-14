@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:actividad_widgets/widgets/ListView/Items.dart';
-import 'package:actividad_widgets/widgets/ListView/ItemList.dart';
+import 'package:actividad_widgets/widgets/ListView/ImageList.dart';
 
-class PlayListView extends StatelessWidget {
-  const PlayListView({Key? key}) : super(key: key);
+class AlbumListView extends StatelessWidget {
+  const AlbumListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      scrollDirection: Axis.vertical,
+      scrollDirection: Axis.horizontal,
       itemCount: sounds.length,
-      itemBuilder: (context, index) => ItemList(
+      itemBuilder: (context, index) => ImageList(
         sound: sounds[index],
       ),
     );
