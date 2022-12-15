@@ -11,5 +11,6 @@ class TextCounter extends StatelessWidget {
       context.watch<Counter>().count.toString(),
       style: Theme.of(context).textTheme.headline4,
     );
+    
   }
 }
