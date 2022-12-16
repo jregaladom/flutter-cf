@@ -7,10 +7,33 @@ class TextCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      context.watch<Counter>().count.toString(),
-      style: Theme.of(context).textTheme.headline4,
-    );
-    
+    return Consumer<Counter>(builder: (context, counter, _) {
+      return Column(
+        children: [
+          Text(
+            context.select((Counter counter) => counter.count.toString()),
+            style: Theme.of(context).textTheme.headline4,
+          ),
+          // Text(
+          //   counter.count.toString(),
+          //   style: Theme.of(context).textTheme.headline4,
+          // ),
+          // Text(
+          //   counter.add.toString(),
+          //   style: Theme.of(context).textTheme.headline4,
+          // ),
+          // Text(
+          //   counter.multy.toString(),
+          //   style: Theme.of(context).textTheme.headline4,
+          // )
+        ],
+      );
+    });
   }
 }
+
+
+// Text(
+//       context.watch<Counter>().count.toString(),
+//       style: Theme.of(context).textTheme.headline4,
+//     )
