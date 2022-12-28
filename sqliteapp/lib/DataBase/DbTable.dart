@@ -16,8 +16,8 @@ class DBTable {
             "date TEXT,"
             "title TEXT,"
             "content TEXT,"
-            "diaryId INTEGER,"
-            "FOREIGN KEY(diaryId) REFERENCES " +
+            "idDiary INTEGER,"
+            "FOREIGN KEY(idDiary) REFERENCES " +
         diary +
         "(id)"
             ")",
