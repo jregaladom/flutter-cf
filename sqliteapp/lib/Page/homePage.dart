@@ -3,17 +3,18 @@ import 'package:sqliteapp/Modelo/page.dart' as pm;
 import 'package:sqliteapp/Modelo/diary.dart';
 import 'package:sqliteapp/Page/formPage.dart';
 import 'package:flutter/material.dart';
+import 'package:sqliteapp/Widget/Card/PageCard.dart';
 
-class MyHomePage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   Diary diary;
 
-  MyHomePage(this.diary);
+  HomePage(this.diary);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   late List<pm.Page> pages;
 
   addPages() {
@@ -49,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
           content: "Pagina 13",
           idDiary: 1)
     ];
-    Page().insertPages(pages);
+    //pm.Page().insertPages(pages);
   }
 
   void goForm() {
@@ -63,23 +64,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   addPage(Page page) {
-    pages.add(page);
+    //pages.add(page);
   }
 
   getListView() {
     return ListView.builder(
         itemCount: pages.length,
         itemBuilder: (BuildContext context, int index) {
-          Page page = pages[index];
-          return Dismissible(
-              key: ObjectKey(page),
-              onDismissed: (direction) {
-                page.delete(page.id);
-                setState(() {
-                  pages.removeAt(index);
-                });
-              },
-              child: PageCard(addPage, pages[index]));
+          return PageCard(pages[index]);
         });
   }
 
@@ -88,24 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Bienveni@ a tu diario ${widget.diary.type}"),
-        actions: <Widget>[
+        actions: [
           IconButton(
             icon: const Icon(Icons.playlist_add),
             onPressed: addPages,
           )
         ],
       ),
-      body: Center(
-          child: FutureBuilder<List<Page>>(
-        // future: pm.Page().getPages(widget.diary.id),
-        initialData: List(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          this.pages = snapshot.data;
-          return (snapshot.connectionState == ConnectionState.done)
-              ? getListView()
-              : CircularProgressIndicator();
-        },
-      )),
+      body: getListView(),
       floatingActionButton: FloatingActionButton(
         onPressed: goForm,
         tooltip: 'Increment',

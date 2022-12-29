@@ -7,9 +7,8 @@ class Diary extends CRUD {
   String enterCode;
   //Diary({this.id, this.type = "", this.enterCode = ""}) : super(DBTable.diary);
 
-  Diary({int? id, this.type = "", this.enterCode = ""}) : super(DBTable.diary) {
-    this.id = id!;
-  }
+  Diary({this.id = 0, this.type = "", this.enterCode = ""})
+      : super(DBTable.diary);
 
   factory Diary.toObject(Map<dynamic, dynamic> data) {
     // return (data != null)
@@ -27,5 +26,10 @@ class Diary extends CRUD {
 
   getList(parsed) {
     return (parsed as List).map((map) => Diary.toObject(map)).toList();
+  }
+
+  save() async {
+    id = await insert(toMap());
+    return (id > 0) ? this : null;
   }
 }

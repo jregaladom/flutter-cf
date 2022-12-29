@@ -6,7 +6,7 @@ class Page extends CRUD {
   String date;
   String title;
   String content;
-  int idDiary;
+  late int idDiary;
 
   //Diary({this.id, this.type = "", this.enterCode = ""}) : super(DBTable.diary);
 
@@ -18,7 +18,6 @@ class Page extends CRUD {
       int? idDiary})
       : super(DBTable.page) {
     this.id = id!;
-    this.idDiary = idDiary;
   }
 
   factory Page.toObject(Map<dynamic, dynamic> data) {

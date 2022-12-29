@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 class PageCard extends StatelessWidget {
   pm.Page page;
-  VoidCallbackParam voidCallbackParam;
-  PageCard(this.voidCallbackParam, this.page);
+  VoidCallbackParam? voidCallbackParam;
+  PageCard(this.page);
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -51,13 +51,13 @@ class PageCard extends StatelessWidget {
   }
 
   onPressPage(context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => FormPage(
-            voidCallbackParam,
-            page: page,
-          ),
-        ));
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => FormPage(
+    //         voidCallbackParam,
+    //         page: page,
+    //       ),
+    //     ));
   }
 }

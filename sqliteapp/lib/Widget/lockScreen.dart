@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sqliteapp/Modelo/diary.dart';
-import 'package:flutter/widgets.dart';
+import 'package:sqliteapp/Page/homePage.dart';
 
 class LockScreen extends StatefulWidget {
-  late List<Diary> diaries;
+  late List<Diary>? diaries;
 
   LockScreen({
     Key? key,
-    required this.diaries,
+    this.diaries,
   }) : super(key: key);
 
   @override
@@ -15,19 +15,22 @@ class LockScreen extends StatefulWidget {
 }
 
 class _LockScreenState extends State<LockScreen> {
-  bool isNewDiary = false;
+  late bool isNewDiary = true;
 
   @override
   void initState() {
-    List<Diary> diaries = widget.diaries;
-    isNewDiary = diaries.isNotEmpty;
+    List<Diary>? diaries = widget.diaries;
+    if (diaries != null) {
+      isNewDiary = diaries.isEmpty;
+    }
+
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Diary> diaries = widget.diaries;
+    List<Diary>? diaries = widget.diaries;
     TextEditingController ctrlType = TextEditingController();
     TextEditingController ctrlCode = TextEditingController();
     Diary dropDownValue = Diary();
@@ -39,42 +42,47 @@ class _LockScreenState extends State<LockScreen> {
     // }
 
     dropDownButton() {
-      return (diaries.isNotEmpty)
-          ? DropdownButton<Diary>(
-              onChanged: (Diary? diary) {
-                setState(() {
-                  dropDownValue = diary!;
-                });
-              },
-              value: dropDownValue,
-              icon: const Icon(Icons.arrow_drop_down),
-              items: diaries.map<DropdownMenuItem<Diary>>((Diary value) {
-                return DropdownMenuItem<Diary>(
-                  value: value,
-                  child: Text(value.type),
-                );
-              }).toList(),
-            )
-          : const SizedBox.shrink();
+      if (diaries != null) {
+        return (diaries.isNotEmpty)
+            ? DropdownButton<Diary>(
+                onChanged: (Diary? diary) {
+                  setState(() {
+                    dropDownValue = diary!;
+                  });
+                },
+                value: dropDownValue,
+                icon: const Icon(Icons.arrow_drop_down),
+                items: diaries.map<DropdownMenuItem<Diary>>((Diary value) {
+                  return DropdownMenuItem<Diary>(
+                    value: value,
+                    child: Text(value.type),
+                  );
+                }).toList(),
+              )
+            : const SizedBox.shrink();
+      } else {
+        return const SizedBox.shrink();
+      }
+    }
+
+    goHome(Diary diary) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomePage(diary)));
     }
 
     save() async {
-      // Diary diary =
-      //     await Diary(type: ctrlType.text, enterCode: ctrlCode.text).save();
-      // if (diary != null) {
-      //   //goHome(diary);
-      // }
+      Diary diary =
+          await Diary(type: ctrlType.text, enterCode: ctrlCode.text).save();
+
+      if (diary != null) {
+        goHome(diary);
+      }
     }
 
     unlock() async {
       //Diary diary = await dropDownValue.checkEnterCode(ctrlCode.text);
       //if (diary != null) goHome(diary);
     }
-
-    // goHome(Diary diary) {
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => MyHomePage(diary)));
-    // }
 
     return Column(
       children: [
