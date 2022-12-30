@@ -1,4 +1,3 @@
-//import 'package:diary_app/Widget/Card/PageCard.dart';
 import 'package:sqliteapp/Modelo/page.dart' as pm;
 import 'package:sqliteapp/Modelo/diary.dart';
 import 'package:sqliteapp/Page/formPage.dart';
@@ -6,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:sqliteapp/Widget/Card/PageCard.dart';
 
 class HomePage extends StatefulWidget {
-  Diary diary;
-
-  HomePage(this.diary);
+  final Diary diary;
+  const HomePage({super.key, required this.diary});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -87,11 +85,23 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: getListView(),
+      body: Center(
+        child: FutureBuilder<List<pm.Page>>(
+          future: pm.Page().getPages(widget.diary.id),
+          initialData: const [],
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            pages = snapshot.data;
+
+            return (snapshot.connectionState == ConnectionState.done)
+                ? getListView()
+                : const CircularProgressIndicator();
+          },
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: goForm,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

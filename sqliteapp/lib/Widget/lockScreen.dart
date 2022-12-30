@@ -36,9 +36,10 @@ class _LockScreenState extends State<LockScreen> {
     Diary dropDownValue = Diary();
 
     // onChangedDiary(Diary diary) {
-    //   setState(() {
-    //     dropDownValue = diary;
-    //   });
+    setState(() {
+      //dropDownValue = diary;
+      dropDownValue = (diaries != null) ? diaries[0] : Diary();
+    });
     // }
 
     dropDownButton() {
@@ -67,7 +68,13 @@ class _LockScreenState extends State<LockScreen> {
 
     goHome(Diary diary) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage(diary)));
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(
+            diary: diary,
+          ),
+        ),
+      );
     }
 
     save() async {
@@ -80,8 +87,8 @@ class _LockScreenState extends State<LockScreen> {
     }
 
     unlock() async {
-      //Diary diary = await dropDownValue.checkEnterCode(ctrlCode.text);
-      //if (diary != null) goHome(diary);
+      Diary diary = await dropDownValue.checkEnterCode(ctrlCode.text);
+      goHome(diary);
     }
 
     return Column(

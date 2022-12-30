@@ -32,4 +32,17 @@ class Diary extends CRUD {
     id = await insert(toMap());
     return (id > 0) ? this : null;
   }
+
+  Future<List<Diary>> getDiaries() async {
+    var result = await query("SELECT * FROM ${DBTable.diary}");
+    return getList(result);
+  }
+
+  checkEnterCode(String enterCode) async {
+    var result = await query(
+        "SELECT * FROM ${DBTable.diary} WHERE id=? and enterCode = ?",
+        arguments: [id, enterCode]);
+
+    return Diary.toObject(result[0]);
+  }
 }

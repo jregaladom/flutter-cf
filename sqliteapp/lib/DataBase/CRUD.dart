@@ -9,7 +9,7 @@ abstract class CRUD {
     return await DbConnection().open();
   }
 
-  query(String sql, List<dynamic> arguments) async {
+  query(String sql, {List<dynamic>? arguments}) async {
     final db = await database;
     return await db.rawQuery(sql, arguments);
   }
@@ -22,7 +22,15 @@ abstract class CRUD {
 
   insert(Map<String, dynamic> data) async {
     final db = await database;
-    return await db.insert(table, data);
+    String enterCode = data['enterCode'];
+    String type = data['type'];
+
+    var value = {
+      'enterCode': enterCode,
+      'type': type,
+    };
+
+    return await db.insert(table, value);
   }
 
   delete(int id) async {

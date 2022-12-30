@@ -11,14 +11,12 @@ class Page extends CRUD {
   //Diary({this.id, this.type = "", this.enterCode = ""}) : super(DBTable.diary);
 
   Page(
-      {int? id,
+      {this.id = 0,
       this.date = "",
       this.title = "",
       this.content = "",
       int? idDiary})
-      : super(DBTable.page) {
-    this.id = id!;
-  }
+      : super(DBTable.page);
 
   factory Page.toObject(Map<dynamic, dynamic> data) {
     return Page(
@@ -41,5 +39,11 @@ class Page extends CRUD {
 
   getList(parsed) {
     return (parsed as List).map((map) => Page.toObject(map)).toList();
+  }
+
+  Future<List<Page>> getPages(idDiary) async {
+    var result = await query("SELECT * FROM ${DBTable.page} WHERE diaryId=?",
+        arguments: [idDiary]);
+    return getList(result);
   }
 }
