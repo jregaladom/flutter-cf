@@ -46,4 +46,9 @@ class Page extends CRUD {
         arguments: [idDiary]);
     return getList(result);
   }
+
+  saveOrUpdate() async {
+    id = (id > 0) ? await update(toMap()) : await insert(toMap());
+    return (id > 0) ? this : null;
+  }
 }

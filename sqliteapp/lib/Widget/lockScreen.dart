@@ -38,7 +38,8 @@ class _LockScreenState extends State<LockScreen> {
     // onChangedDiary(Diary diary) {
     setState(() {
       //dropDownValue = diary;
-      dropDownValue = (diaries != null) ? diaries[0] : Diary();
+      dropDownValue =
+          (diaries != null && diaries.isNotEmpty) ? diaries[0] : Diary();
     });
     // }
 

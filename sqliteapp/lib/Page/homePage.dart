@@ -56,13 +56,13 @@ class _HomePageState extends State<HomePage> {
         context,
         MaterialPageRoute(
             builder: (context) => FormPage(
-                  addPage,
+                  addPage(),
                   diary: widget.diary,
                 )));
   }
 
-  addPage(Page page) {
-    //pages.add(page);
+  addPage(pm.Page page) {
+    pages.add(page);
   }
 
   getListView() {

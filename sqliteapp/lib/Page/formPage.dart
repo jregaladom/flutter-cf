@@ -24,7 +24,24 @@ class _FormPageState extends State<FormPage> {
 
   @override
   Widget build(BuildContext context) {
-    save() async {}
+    getTextBox() {
+      if (page.id > 0) {
+        page.title = ctrlTitle.text;
+        page.content = ctrlContent.text;
+        page.date = ctrlDate.text;
+      }
+    }
+
+    save() async {
+      getTextBox();
+      pm.Page page = await pm.Page().saveOrUpdate();
+
+      if (page.id > 0) {
+        widget.voidCallbackParam(page);
+        Navigator.pop(context);
+      }
+    }
+
     return SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(
